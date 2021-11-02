@@ -6,7 +6,7 @@ import './vendors/utils.js'
 
 class {
 
-  onCreate(){ this.state = { ctcode: '', phone: '', phoneErr: false } }
+  onCreate(){ this.state = { ctcode: '', phone: '' } }
   onInput( input ){
 
     if( !input.value ) return
@@ -51,10 +51,9 @@ class {
       // When country select change
       if( this.iti.getValidationError() ){
         // wrong phone number: Empty phone input
-        this.state.phoneErr = true
+        this.emit('error', 'Invalid Phone Number')
         return
       }
-      else this.state.phoneErr = false
 
       let ctData = this.iti.getSelectedCountryData()
 
@@ -76,10 +75,9 @@ class {
     // set the required format into the hidden inputs
     if( this.iti.getValidationError() ){
       // wrong phone number: Empty phone input
-      this.state.phoneErr = true
+      this.emit('error', 'Phone Number is required')
       return
     }
-    else this.state.phoneErr = false
 
     let ctcode = this.iti.getSelectedCountryData().dialCode,
         nInput = this.iti.getNumber( intlTelInputUtils.numberFormat.E164 )
@@ -99,7 +97,4 @@ class {
             placeholder=( Locale('Phone Number') )
             on-change('onDone')>
   </div>
-  <p class=( 'small mt-50 mb-2'+( !state.phoneErr ? ' d-none' : '' ) )>
-    <Locale text="Invalid Phone Number"/>
-  </p>
 </div>

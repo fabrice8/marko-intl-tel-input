@@ -22,7 +22,8 @@ yarn add intl-tel-input
               value=state.phone
               placeholder="Phone Number"
               E123=true
-              on-change("onPhoneNumberChange")/>
+              on-change("onHandleChange")
+              on-error("onHandleError")/>
 
 ```
 
