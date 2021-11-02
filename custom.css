@@ -1,6 +1,6 @@
 
-.iti-flag{ width:30px!important;width:20px!important;background-image: url("../flags/flags.png")!important }
-@media( -webkit-min-device-pixel-ratio: 2 ), ( min-resolution: 192dpi ){ .iti-flag{ background-image: url("../flags/flags@2x.png")!important } }
+.iti-flag{ width:30px!important;width:20px!important;background-image: url("./flags/flags.png")!important }
+@media( -webkit-min-device-pixel-ratio: 2 ), ( min-resolution: 192dpi ){ .iti-flag{ background-image: url("./flags/flags@2x.png")!important } }
 .iti{ width:100%;display: -webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex; }
 .iti .iti__flag-container,
 .iti .iti__selected-flag{ background:none!important;border:none!important;padding-left:12px!important;outline:0!important; }
