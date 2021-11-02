@@ -4,13 +4,13 @@ International telephone number Markojs input component, build using [Intl-tel-in
 ## Installation
 
 `
-npm install intl-tel-input --save
+npm install marko-intl-tel-input --save
 ` 
 
 or
 
 `
-yarn add intl-tel-input
+yarn add marko-intl-tel-input
 `
 
 ## Usage
