@@ -9,7 +9,9 @@
   "files": [
     "index.marko",
     "transformer.js",
-    "marko.json"
+    "marko.json",
+    "custom.css",
+    "utils.js"
   ],
   "homepage": "https://github.com/marko-js/tags/tree/master/tags/subscribe",
   "keywords": [
