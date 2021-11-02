@@ -1,0 +1,105 @@
+
+import intlTelInput from 'intl-tel-input'
+import 'intl-tel-input/build/css/intlTelInput.css'
+import './vendors/custom.css'
+import './vendors/utils.js'
+
+class {
+
+  onCreate(){ this.state = { ctcode: '', phone: '', phoneErr: false } }
+  onInput( input ){
+
+    if( !input.value ) return
+
+    const [ full, ctcode, phone ] = input.value.match(/^\(\+([0-9]+)\) ?([0-9]+)$/)
+
+    this.state.ctcode = Number( ctcode )
+    this.state.phone = Number( phone )
+  }
+  onMount(){
+
+    let $input = $(this.getEl()).find('input.intlTelInput')
+
+    this.iti = intlTelInput( $input[0],
+                              {
+                                formatOnDisplay: true,
+                                separateDialCode: false,
+                                initialCountry: 'auto',
+                                preferredCountries: [ 'gh', 'tg', 'ng', 'us', 'gb' ],
+                                geoIpLookup: async ( success, error ) => {
+
+                                  let stored = uiStore.get('lookupCountry')
+
+                                  !!stored ?
+                                      // Display stored user country
+                                      success( stored && stored.iso2 ? stored.iso2 : stored.country || defaultCountry )
+                                      // Get user location country
+                                      : fetch('https://ipinfo.io/json?token=7c8088674702f6')
+                                            .then( response => response.json() )
+                                            .then( data => {
+                                              uiStore.set( 'lookupCountry', data )
+                                              success( data && data.country ? data.country : 'tg' )
+                                            })
+                                },
+                                customPlaceholder: ( CPlaceholder, cData ) => { return CPlaceholder }
+                              } )
+
+    $input.on( 'countrychange', () => {
+
+      if( !this.state.phone || !$input.val() ) return
+
+      // When country select change
+      if( this.iti.getValidationError() ){
+        // wrong phone number: Empty phone input
+        this.state.phoneErr = true
+        return
+      }
+      else this.state.phoneErr = false
+
+      let ctData = this.iti.getSelectedCountryData()
+
+      if( typeof ctData == 'object' )
+        uiStore.set( 'lookupCountry', ctData )
+
+      let
+      ctcode = ctData.dialCode,
+      nInput = this.iti.getNumber( intlTelInputUtils.numberFormat.E164 )
+
+      this.state.ctcode = ctcode
+      this.state.phone = nInput.replace( new RegExp( '^\\+'+ ctcode ), '' )
+
+      this.emit( 'change', '(+'+ this.state.ctcode +')'+ this.state.phone )
+    } )
+  }
+
+  onDone(){
+    // set the required format into the hidden inputs
+    if( this.iti.getValidationError() ){
+      // wrong phone number: Empty phone input
+      this.state.phoneErr = true
+      return
+    }
+    else this.state.phoneErr = false
+
+    let ctcode = this.iti.getSelectedCountryData().dialCode,
+        nInput = this.iti.getNumber( intlTelInputUtils.numberFormat.E164 )
+
+    this.state.ctcode = ctcode
+    this.state.phone = nInput.replace( new RegExp( '^\\+'+ ctcode ), '' )
+
+    this.emit( 'change', '(+'+ this.state.ctcode +')'+ this.state.phone )
+  }
+}
+
+<div>
+  <div class="form-group" no-update>
+    <input type="text"
+            value=state.phone
+            class=`intlTelInput form-control pl-4 w-100 ${input.class}`
+            placeholder=( Locale('Phone Number') )
+            on-change('onDone')>
+  </div>
+  <p class=( 'small mt-50 mb-2'+( !state.phoneErr ? ' d-none' : '' ) )>
+    <Locale text="Invalid Phone Number"/>
+  </p>
+</div>

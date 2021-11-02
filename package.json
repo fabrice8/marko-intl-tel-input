@@ -1,0 +1,26 @@
+{
+  "name": "marko-intl-tel-input",
+  "version": "1.0.0",
+  "description": "International telephone number markojs input component",
+  "repository": "https://github.com/fabrice8/marko-intl-tel-input",
+  "author": "Fabrice K.M. Ekpetse <fabrice.xyclone@gmail.com>",
+  "license": "MIT",
+  "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
+  "files": [
+    "index.marko",
+    "transformer.js",
+    "marko.json"
+  ],
+  "homepage": "https://github.com/marko-js/tags/tree/master/tags/subscribe",
+  "keywords": [
+    "marko",
+    "intl-tel-input",
+    "form"
+  ],
+  "peerDependencies": {
+    "marko": "^4.12.4 || ^5"
+  },
+  "dependencies": {
+    "intl-tel-input": "^17.0.13"
+  }
+}
