@@ -11,7 +11,9 @@
     "transformer.js",
     "marko.json",
     "custom.css",
-    "utils.js"
+    "utils.js",
+    "flags/flags.png",
+    "flags/flags@2x.png"
   ],
   "homepage": "https://github.com/marko-js/tags/tree/master/tags/subscribe",
   "keywords": [
