@@ -5,7 +5,7 @@
   "repository": "https://github.com/fabrice8/marko-intl-tel-input",
   "author": "Fabrice K.M. Ekpetse <fabrice.xyclone@gmail.com>",
   "license": "MIT",
-  "bugs": "https://github.com/marko-js/tags/issues/new?template=Bug_report.md",
+  "bugs": "https://github.com/fabrice8/marko-intl-tel-input/issues/new",
   "files": [
     "index.marko",
     "transformer.js",
@@ -15,7 +15,7 @@
     "flags/flags.png",
     "flags/flags@2x.png"
   ],
-  "homepage": "https://github.com/marko-js/tags/tree/master/tags/subscribe",
+  "homepage": "https://github.com/fabrice8/marko-intl-tel-input/tree/master",
   "keywords": [
     "marko",
     "intl-tel-input",
