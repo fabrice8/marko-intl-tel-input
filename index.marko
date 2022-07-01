@@ -5,7 +5,6 @@ import './custom.css'
 import './utils'
 
 class {
-
   onCreate(){ this.state = { ctcode: '', phone: '' } }
   onInput( input ){
 
@@ -13,12 +12,12 @@ class {
 
     const [ full, ctcode, phone ] = input.value.match(/^\(\+([0-9]+)\) ?([0-9]+)$/)
 
-    this.state.ctcode = Number( ctcode )
-    this.state.phone = Number( phone )
+    this.state.ctcode = ctcode
+    this.state.phone = phone
   }
   onMount(){
 
-    let $input = $(this.getEl()).find('input.intlTelInput')
+    const $input = $(this.getEl()).find('input.intlTelInput')
 
     this.iti = intlTelInput( $input[0],
                               {
@@ -44,6 +43,8 @@ class {
                                 customPlaceholder: ( CPlaceholder, cData ) => { return CPlaceholder }
                               } )
 
+    
+    this.state.phone && this.iti.setNumber(`+${this.state.ctcode}${this.state.phone}`)
     $input.on( 'countrychange', () => {
 
       if( !this.state.phone || !$input.val() ) return
@@ -55,12 +56,12 @@ class {
         return
       }
 
-      let ctData = this.iti.getSelectedCountryData()
+      const ctData = this.iti.getSelectedCountryData()
 
       if( typeof ctData == 'object' )
         uiStore.set( 'lookupCountry', ctData )
 
-      let
+      const
       ctcode = ctData.dialCode,
       nInput = this.iti.getNumber( intlTelInputUtils.numberFormat.E164 )
 
@@ -79,12 +80,14 @@ class {
       return
     }
 
-    let ctcode = this.iti.getSelectedCountryData().dialCode,
-        nInput = this.iti.getNumber( intlTelInputUtils.numberFormat.E164 )
+    const 
+    ctcode = this.iti.getSelectedCountryData().dialCode,
+    nInput = this.iti.getNumber( intlTelInputUtils.numberFormat.E164 )
 
     this.state.ctcode = ctcode
     this.state.phone = nInput.replace( new RegExp( '^\\+'+ ctcode ), '' )
 
+    this.state.phone && this.iti.setNumber(`+${this.state.ctcode}${this.state.phone}`)
     this.emit( 'change', '(+'+ this.state.ctcode +')'+ this.state.phone )
   }
 }
@@ -94,7 +97,7 @@ class {
     <input type="text"
             value=state.phone
             class=`intlTelInput form-control pl-4 w-100 ${input.class}`
-            placeholder=( Locale('Phone Number') )
+            placeholder=Locale('Phone Number')
             on-change('onDone')>
   </div>
 </div>
