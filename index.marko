@@ -7,15 +7,17 @@ import './utils'
 class {
   onCreate(){ this.state = { ctcode: '', phone: '' } }
   onInput({ value }){
-
     if( !value ) return
 
     const [ full, ctcode, phone ] = value.match(/^\(\+([0-9]+)\) ?([0-9]+)$/) || []
     this.state.ctcode = ctcode
     this.state.phone = phone
+
+    this.iti
+    && this.state.phone
+    && this.iti.setNumber(`+${this.state.ctcode}${this.state.phone}`)
   }
   onMount(){
-
     const $input = $(this.getEl()).find('input.intlTelInput')
 
     this.iti = intlTelInput( $input[0],
@@ -91,12 +93,10 @@ class {
   }
 }
 
-<div>
-  <div class="form-group" no-update>
-    <input type="text"
-            value=state.phone
-            class=`intlTelInput form-control pl-4 w-100 ${input.class}`
-            placeholder=Locale('Phone Number')
-            on-change('onDone')>
-  </div>
+<div class="form-group" no-update>
+  <input type="text"
+          value=state.phone
+          class=`intlTelInput form-control pl-4 w-100 ${input.class}`
+          placeholder=Locale('Phone Number')
+          on-change('onDone')>
 </div>
