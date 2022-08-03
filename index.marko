@@ -6,12 +6,11 @@ import './utils'
 
 class {
   onCreate(){ this.state = { ctcode: '', phone: '' } }
-  onInput( input ){
+  onInput({ value }){
 
-    if( !input.value ) return
+    if( !value ) return
 
-    const [ full, ctcode, phone ] = input.value.match(/^\(\+([0-9]+)\) ?([0-9]+)$/)
-
+    const [ full, ctcode, phone ] = value.match(/^\(\+([0-9]+)\) ?([0-9]+)$/) || []
     this.state.ctcode = ctcode
     this.state.phone = phone
   }
