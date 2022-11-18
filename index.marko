@@ -6,21 +6,27 @@ import './utils'
 
 class {
   onCreate(){ this.state = { ctcode: '', phone: '' } }
-  onInput({ value }){
-    if( !value ) return
+  onInput( input ){
+    // Apply class traditionaly to DOM
+    input.class
+    && this.$input
+    && this.$input.length
+    && this.$input.attr('class', `intlTelInput w-100 pl-4 ${input.class}`)
 
-    const [ full, ctcode, phone ] = value.match(/^\(\+([0-9]+)\) ?([0-9]+)$/) || []
+    if( !input.value ) return
+
+    const [ full, ctcode, phone ] = input.value.match(/^\(\+([0-9]+)\) ?([0-9]+)$/) || []
     this.state.ctcode = ctcode
     this.state.phone = phone
 
-    this.iti
-    && this.state.phone
-    && this.iti.setNumber(`+${this.state.ctcode}${this.state.phone}`)
+    phone
+    && this.iti
+    && this.iti.setNumber(`+${ctcode}${phone}`)
   }
   onMount(){
-    const $input = $(this.getEl()).find('input.intlTelInput')
+    this.$input = $(this.getEl()).find('input.intlTelInput')
 
-    this.iti = intlTelInput( $input[0],
+    this.iti = intlTelInput( this.$input[0],
                               {
                                 formatOnDisplay: true,
                                 separateDialCode: false,
@@ -43,12 +49,11 @@ class {
                                 },
                                 customPlaceholder: ( CPlaceholder, cData ) => { return CPlaceholder }
                               } )
-
     
     this.state.phone && this.iti.setNumber(`+${this.state.ctcode}${this.state.phone}`)
-    $input.on( 'countrychange', () => {
+    this.$input.on( 'countrychange', () => {
 
-      if( !this.state.phone || !$input.val() ) return
+      if( !this.state.phone || !this.$input.val() ) return
 
       // When country select change
       if( this.iti.getValidationError() ){
@@ -93,10 +98,11 @@ class {
   }
 }
 
-<div class="form-group" no-update>
-  <input type="text"
-          value=state.phone
-          class=`intlTelInput form-control pl-4 w-100 ${input.class}`
-          placeholder=Locale('Phone Number')
-          on-change('onDone')>
+<div.form-group no-update>
+  <input.intlTelInput.w-100.pl-4 
+        type="text"
+        value=state.phone
+        class=input.class
+        placeholder=Locale('Phone Number')
+        on-change('onDone')/>
 </div>
