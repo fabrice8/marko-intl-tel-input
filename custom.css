@@ -6,3 +6,6 @@
 .iti .iti__selected-flag{ background:none!important;border:none!important;padding-left:12px!important;outline:0!important; }
 /* .intl-tel-input .selected-flag{ padding:0 0 0 5px!important; } */
 .iti input.intlTelInput{ padding-left:60px!important; }
+.iti-disabled input.intlTelInput { padding-left:40px!important;border:none!important; }
+.iti-disabled .iti__flag-container { padding-left: 0!important }
+.iti-disabled .iti__selected-flag { padding: 0!important }

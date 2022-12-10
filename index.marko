@@ -98,12 +98,11 @@ class {
   }
 }
 
-<div.form-group no-update>
+<div.form-group no-update-body class=(input.disabled ? 'iti-disabled' : false)>
   <input.intlTelInput.w-100.pl-4 
         type="text"
         value=state.phone
         class=input.class
-        disabled=input.disabled
         placeholder=Locale('Phone Number')
         on-change('onDone')/>
 </div>
