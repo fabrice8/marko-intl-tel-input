@@ -1,6 +1,6 @@
 {
   "name": "marko-intl-tel-input",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "International telephone number markojs input component",
   "repository": "https://github.com/fabrice8/marko-intl-tel-input",
   "author": "Fabrice K.M. Ekpetse <fabrice.xyclone@gmail.com>",
